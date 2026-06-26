@@ -55,7 +55,7 @@ export default function MutationPage() {
 
 
     return (
-        <div className="min-h-screen text-white p-4">
+        <div className="min-h-full text-white p-4">
 
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
@@ -108,22 +108,24 @@ export default function MutationPage() {
                 )}
                 {!loading && mutations.map(item => (
 
-                    <div
-                        key={item.id}
-                        className="
-                            bg-[#141622]
-                            border border-gray-800
-                            rounded-3xl
-                            p-4
-                            flex gap-4
-                        "
-                    >
+                <div
+                    key={item.id}
+                    className="
+                        bg-[#141622]
+                        border border-gray-800
+                        rounded-2xl
+                        p-4
+                        space-y-3
+                    "
+                >
 
-                        {/* Icon */}
+                    {/* Header */}
+                    <div className="flex items-start gap-3">
+
                         <div
                             className={`
-                                w-12 h-12
-                                rounded-2xl
+                                w-10 h-10
+                                rounded-xl
                                 flex items-center justify-center
                                 flex-shrink-0
                                 ${
@@ -135,28 +137,48 @@ export default function MutationPage() {
                         >
                             {
                                 item.type === "credit"
-                                    ? <ArrowDownLeft className="w-5 h-5"/>
-                                    : <ArrowUpRight className="w-5 h-5"/>
+                                    ? <ArrowDownLeft size={18}/>
+                                    : <ArrowUpRight size={18}/>
                             }
                         </div>
 
                         <div className="flex-1 min-w-0">
 
-                            <div className="flex justify-between gap-4">
+                            <div className="flex justify-between gap-3">
 
                                 <div className="min-w-0">
-                                    <div className="font-semibold truncate">
+
+                                    <div className="font-medium truncate">
                                         {item.description}
                                     </div>
 
-                                    <div className="text-xs text-gray-500">
-                                        {item.category}
+                                    <div className="flex items-center gap-2 mt-1">
+
+                                        <span className="text-xs text-gray-500">
+                                            {item.category}
+                                        </span>
+
+                                        {item.wallet && (
+                                            <span
+                                                className="
+                                                    px-2 py-1
+                                                    rounded-full
+                                                    bg-gray-800
+                                                    text-[10px]
+                                                    text-gray-300
+                                                "
+                                            >
+                                                {item.wallet}
+                                            </span>
+                                        )}
+
                                     </div>
+
                                 </div>
 
                                 <div
                                     className={`
-                                        font-bold whitespace-nowrap
+                                        text-right
                                         ${
                                             item.type === "credit"
                                                 ? "text-green-400"
@@ -164,23 +186,55 @@ export default function MutationPage() {
                                         }
                                     `}
                                 >
-                                    {item.type === "credit" ? "+" : "-"}
-                                    Rp {item.nominal.toLocaleString("id-ID")}
+
+                                    <div className="font-bold">
+                                        {item.type === "credit" ? "+" : "-"}
+                                        Rp {item.nominal.toLocaleString("id-ID")}
+                                    </div>
+
+                                    <div className="text-xs text-gray-500">
+                                        {
+                                                    new Date(item.timestamp).toLocaleString("id-ID", {
+                                                        day: "2-digit",
+                                                        month: "short",
+                                                        hour: "2-digit",
+                                                        minute: "2-digit"
+                                                    })
+                                                }
+                                    </div>
+
                                 </div>
 
-                            </div>
-
-                            <div className="mt-3 text-xs text-gray-500 truncate">
-                                Saldo:
-                                {" "}
-                                Rp {item.start_balance.toLocaleString("id-ID")}
-                                {" → "}
-                                Rp {item.end_balance.toLocaleString("id-ID")}
                             </div>
 
                         </div>
 
                     </div>
+
+                    {/* Balance */}
+                    <div
+                        className="
+                            flex items-center justify-between
+                            text-xs
+                            bg-[#0f111a]
+                            rounded-xl
+                            px-3 py-2
+                        "
+                    >
+
+                        <div className="text-gray-500">
+                            Saldo
+                        </div>
+
+                        <div className="font-medium text-gray-300">
+                            Rp {item.start_balance.toLocaleString("id-ID")}
+                            <span className="mx-2 text-gray-600">→</span>
+                            Rp {item.end_balance.toLocaleString("id-ID")}
+                        </div>
+
+                    </div>
+
+                </div>
 
                 ))}
 

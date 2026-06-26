@@ -6,6 +6,7 @@ import WalletCardSkeleton from './components/WalletCardSkeleton';
 import WalletCarousel from './components/WalletCarousel';
 import { getWalletCards } from '../../services/WalletService';
 import { GetLastMutation } from "../../services/MutationService";
+import LastMutationSection from './components/LastMutationSection';
 
 
 export default function MainMenuPage() {
@@ -91,93 +92,7 @@ export default function MainMenuPage() {
                 </section>
 
                 {/* Transaction History Section */}
-                <section className="w-full bg-[#141622] border border-gray-800/60 rounded-3xl p-5 space-y-4">
-                    <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-2 font-bold text-sm tracking-wide text-gray-200">
-                            <History className="w-4 h-4 text-green-400" />
-                            Riwayat Mutasi
-                        </div>
-
-                        <button
-                            className="text-xs text-green-400 hover:text-green-300 font-medium"
-                            onClick={() => navigate("/mutation")}
-                        >
-                            Lihat Semua
-                        </button>
-                    </div>
-
-                    <div className="space-y-3">
-                        {loadingMutation && (
-                            <div className="text-gray-500 text-center py-4">
-                                Memuat...
-                            </div>
-                        )}
-
-                        {!loadingMutation && mutations.length === 0 && (
-                            <div className="
-                                rounded-2xl
-                                border border-dashed border-gray-700
-                                p-6
-                                text-center
-                                text-gray-500
-                            ">
-                                Belum ada mutasi
-                            </div>
-                        )}
-
-                        {mutations.map(item => (
-                            <div
-                                key={item.id}
-                                className="flex justify-between items-center p-3 bg-[#1c1e2d]/50 rounded-xl border border-gray-800/40"
-                            >
-                                <div className="flex items-center gap-3">
-                                    <div
-                                        className={`p-2 rounded-lg ${
-                                            item.type === "credit"
-                                                ? "bg-green-500/10 text-green-400"
-                                                : "bg-red-500/10 text-red-400"
-                                        }`}
-                                    >
-                                        {
-                                            item.type === "credit"
-                                                ? <ArrowDownLeft className="w-4 h-4"/>
-                                                : <ArrowUpRight className="w-4 h-4"/>
-                                        }
-                                    </div>
-
-                                    <div className="min-w-0">
-                                        <div className="text-xs font-semibold text-gray-200 truncate">
-                                            {item.category}
-                                        </div>
-
-                                        <div className="text-[10px] text-gray-500 truncate">
-                                            {item.description}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="text-right">
-                                    <div
-                                        className={`text-xs font-bold ${
-                                            item.type === "credit"
-                                                ? "text-green-400"
-                                                : "text-red-400"
-                                        }`}
-                                    >
-                                        {item.type === "credit" ? "+" : "-"}
-                                        Rp {item.nominal.toLocaleString("id-ID")}
-                                    </div>
-
-                                    <div className="text-[10px] text-gray-500">
-                                        {item.start_balance.toLocaleString("id-ID")}
-                                        {" → "}
-                                        {item.end_balance.toLocaleString("id-ID")}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                <LastMutationSection mutations={mutations} loadingMutation={loadingMutation}/>
             </main>
         </div>
     );

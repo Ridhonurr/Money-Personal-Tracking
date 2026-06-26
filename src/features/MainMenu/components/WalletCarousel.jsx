@@ -4,6 +4,7 @@ import WalletCard from './WalletCard';
 
 import 'swiper/css';
 import EmptyWalletCard from './EmptyWalletCard';
+import WalletPagination from './WalletCardPagination';
 
 export default function WalletCarousel({ wallets }) {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -18,8 +19,8 @@ export default function WalletCarousel({ wallets }) {
                 slidesPerView={1.1}
                 onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             >
-                {wallets.map((wallet, index) => (
-                    <SwiperSlide key={index}>
+                {wallets.map(wallet => (
+                    <SwiperSlide key={wallet.id}>
                         <WalletCard wallet={wallet} />
                     </SwiperSlide>
                 ))}
@@ -27,18 +28,7 @@ export default function WalletCarousel({ wallets }) {
 
             {/* Pagination */}
             {wallets.length > 1 && (
-                <div className="flex justify-center gap-2 mt-4">
-                    {wallets.map((_, index) => (
-                        <div
-                            key={index}
-                            className={`h-2 rounded-full transition-all duration-300 ${
-                                activeIndex === index
-                                    ? 'w-6 bg-green-400'
-                                    : 'w-2 bg-gray-600'
-                            }`}
-                        />
-                    ))}
-                </div>
+                <WalletPagination wallets={wallets} activeIndex={activeIndex} />
             )}
         </div>
     );
