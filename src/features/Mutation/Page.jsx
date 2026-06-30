@@ -17,6 +17,8 @@ export default function MutationPage() {
     // data
     const [mutations, setMutations] = useState([]);
     const [totalData, setTotalData] = useState(0);
+    const [totalDebit, setTotalDebit] = useState(0);
+    const [totalCredit, setTotalCredit] = useState(0);
 
     // filter
     const [showFilter, setShowFilter] = useState(false);
@@ -38,6 +40,23 @@ export default function MutationPage() {
                 limit,
                 page
             });
+
+            // 1. Buat variabel penampung sementara
+            let calculatedDebit = 0;
+            let calculatedCredit = 0;
+
+            // 2. Gunakan forEach untuk menjalankan side-effect / perhitungan
+            resp.list.forEach((item) => {
+                if (item.type === "debit") {
+                    calculatedDebit += item.nominal;
+                } else {
+                    calculatedCredit += item.nominal;
+                }
+            });
+
+            // 3. Update state sekaligus di akhir perulangan
+            setTotalDebit(calculatedDebit);
+            setTotalCredit(calculatedCredit);
 
             setMutations(resp.list);
             setTotalPage(resp.total_page);
@@ -87,6 +106,11 @@ export default function MutationPage() {
             </div>
 
             {/* List */}
+            <div className="flex justify-between space-y-3">
+                <span className="text-red-400">Debit: Rp {totalDebit.toLocaleString("id-ID")}</span>
+                <span className="text-green-400">Kredit: Rp {totalCredit.toLocaleString("id-ID")}</span>
+                
+            </div>
             <div className="space-y-3">
                 {loading && (
                     <div className="text-center text-gray-500 py-8">

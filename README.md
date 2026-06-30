@@ -141,7 +141,30 @@ npm run open:android      # Buka project Android di Android Studio
 npm run init:android      # Inisialisasi project Android (pertama kali)
 ```
 
+## 📚 Context Management untuk AI
+
+Proyek ini dilengkapi dengan file konteks yang dirancang agar mudah dipahami oleh AI coding assistant (seperti Cline) dan developer baru:
+
+| File | Deskripsi |
+|------|-----------|
+| [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Arsitektur proyek, stack, struktur folder, data flow, session management, routing |
+| [`API.md`](./API.md) | Dokumentasi lengkap semua endpoint REST API (request/response shape) |
+| [`src/types.js`](./src/types.js) | JSDoc type definitions untuk semua entity dan payload |
+| [`src/features/Authentication/CONTEXT.md`](./src/features/Authentication/CONTEXT.md) | Konteks fitur autentikasi |
+| [`src/features/MainMenu/CONTEXT.md`](./src/features/MainMenu/CONTEXT.md) | Konteks fitur dashboard utama |
+| [`src/features/Mutation/CONTEXT.md`](./src/features/Mutation/CONTEXT.md) | Konteks fitur mutasi/transaksi |
+| [`src/features/Wallet/CONTEXT.md`](./src/features/Wallet/CONTEXT.md) | Konteks fitur manajemen dompet |
+| [`src/features/Report/CONTEXT.md`](./src/features/Report/CONTEXT.md) | Konteks fitur laporan |
+
+File-file ini mendokumentasikan:
+- **Tujuan** setiap fitur
+- **Data flow** dan state management
+- **Dependencies** antar modul
+- **Edge cases** yang perlu ditangani
+- **Response shape** API untuk setiap endpoint
+
 ## 🔌 API Endpoints
+
 
 Aplikasi ini mengonsumsi REST API dengan autentikasi Bearer token.
 

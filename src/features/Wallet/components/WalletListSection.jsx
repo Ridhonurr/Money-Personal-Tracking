@@ -1,6 +1,8 @@
 import { Pencil, Wallet } from "lucide-react";
+import { useNavigate } from "react-router";
 
 export default function WalletListSection({loading, wallets}){
+    const navigate = useNavigate();
     return (
         <div className="space-y-3">
                 {loading && (
@@ -37,7 +39,7 @@ export default function WalletListSection({loading, wallets}){
                             </div>
 
                             <div className="text-xs text-gray-500">
-                                ID: {wallet.id}
+                                Saldo: {wallet.balance.toLocaleString("id-ID")}
                             </div>
                         </div>
                         <Pencil className="w-5 h-5" />
